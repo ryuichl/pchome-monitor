@@ -232,7 +232,7 @@
             )
         }
         const job = new CronJob({
-            cronTime: '0 */5 * * * *',
+            cronTime: `0 */${process.env.interval || 5} * * * *`,
             onTick: async () => {
                 console.log(`job start ${moment().format()}`)
                 await inspect().catch((err) => {
