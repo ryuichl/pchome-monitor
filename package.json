@@ -1,0 +1,29 @@
+{
+  "name": "pchome-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryuichl/pchome-monitor.git"
+  },
+  "author": "RoyLin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryuichl/pchome-monitor/issues"
+  },
+  "homepage": "https://github.com/ryuichl/pchome-monitor#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.0",
+    "got": "^11.1.1",
+    "moment": "^2.25.3",
+    "url-parse": "^1.4.7",
+    "yargs": "^15.3.1"
+  }
+}
