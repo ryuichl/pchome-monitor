@@ -11,7 +11,7 @@
         const moment = require('moment')
         const fs = require('fs-extra')
 
-        const store_urls = ['https://24h.pchome.com.tw/store/DGBJDE']
+        const store_urls = process.env.store_url.split(',')
         const prod_urls = []
 
         const sleep = (time) => {
@@ -232,7 +232,7 @@
             )
         }
         const job = new CronJob({
-            cronTime: '0 */3 * * * *',
+            cronTime: '0 */5 * * * *',
             onTick: async () => {
                 console.log(`job start ${moment().format()}`)
                 await inspect().catch((err) => {
