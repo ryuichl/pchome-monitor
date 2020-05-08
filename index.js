@@ -8,7 +8,7 @@
         const argv = require('yargs').argv
         const Promise = require('bluebird')
         const urlparse = require('url-parse')
-        const moment = require('moment')
+        const moment = require('moment-timezone')
         const fs = require('fs-extra')
 
         const store_urls = process.env.store_url.split(',')
@@ -90,7 +90,7 @@
                 status +
                 '\n' +
                 '時間 : ' +
-                moment().format('YYYY/MM/DD HH:mm:ss') +
+                moment().tz('Asia/Taipei').format('YYYY/MM/DD HH:mm:ss') +
                 '\n' +
                 '品項 : ' +
                 prod.Name +
@@ -162,7 +162,7 @@
                 if (!old_info) {
                     return true
                 }
-                if (new_info.Qty !== 0 && old_info.Qty === 0) {
+                if (new_info.Qty > old_info.Qty) {
                     console.log(`商品進貨 ${new_info.Name}`)
                     db[prod_id].Qty = new_info.Qty
                     db[prod_id].Price = new_info.Price
@@ -222,7 +222,7 @@
                         new_info.Qty = button.Qty
                         console.log(`新商品上架 ${new_info.Name}`)
                         await line_notify(message_template('新商品上架', new_info))
-                        new_info.update_at = moment().format()
+                        new_info.update_at = moment().tz('Asia/Taipei').format()
                         db[`${prod_id}-000`] = new_info
                         await fs.outputJson(db_des, db)
                     }
@@ -234,7 +234,7 @@
         const job = new CronJob({
             cronTime: `0 */${process.env.interval || 5} * * * *`,
             onTick: async () => {
-                console.log(`job start ${moment().format()}`)
+                console.log(`job start ${moment().tz('Asia/Taipei').format()}`)
                 await inspect().catch((err) => {
                     console.log(err.message)
                     console.log(err.options.url)
