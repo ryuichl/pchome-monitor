@@ -12,7 +12,6 @@
         const fs = require('fs-extra')
 
         const store_urls = process.env.store_url.split(',')
-        const prod_urls = []
 
         const sleep = (time) => {
             return new Promise((resolve) => setTimeout(resolve, time))
