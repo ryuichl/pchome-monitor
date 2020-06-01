@@ -51,7 +51,7 @@
             return JSON.parse(info)
         }
         const get_prod_id = async () => {
-            const prods1 = await Promise.reduce(
+            const prods = await Promise.reduce(
                 store_urls,
                 async (array, store_url) => {
                     const options = {
@@ -80,17 +80,14 @@
                 },
                 []
             )
-            const prods2 = prod_urls.map((url) => {
-                return pchome_prod_id(url)
-            })
-            return prods1.concat(prods2)
+            return prods
         }
         const message_template = (status, prod) => {
             const message =
                 status +
                 '\n' +
                 '時間 : ' +
-                moment().tz('Asia/Taipei').format('YYYY/MM/DD HH:mm:ss') +
+                moment().format('YYYY/MM/DD HH:mm:ss') +
                 '\n' +
                 '品項 : ' +
                 prod.Name +
@@ -100,6 +97,9 @@
                 '\n' +
                 '數量 : ' +
                 prod.Qty +
+                '\n' +
+                '按鈕 : ' +
+                prod.ButtonType +
                 '\n' +
                 '網址 : ' +
                 pchome_prod_url(prod.Id)
