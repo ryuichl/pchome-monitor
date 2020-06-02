@@ -86,7 +86,7 @@
                 status +
                 '\n' +
                 '時間 : ' +
-                moment().format('YYYY/MM/DD HH:mm:ss') +
+                moment().tz('Asia/Taipei').format('YYYY/MM/DD HH:mm:ss') +
                 '\n' +
                 '品項 : ' +
                 prod.Name +
