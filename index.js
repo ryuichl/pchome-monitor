@@ -159,10 +159,14 @@
             await sleep(2000)
             await Promise.map(new_infos, async (new_info) => {
                 const prod_id = new_info.Id
-                const old_info = db[prod_id]
+                const old_info = Object.assign({}, db[prod_id])
                 if (!old_info) {
                     return true
                 }
+                db[prod_id].Qty = new_info.Qty
+                db[prod_id].Price = new_info.Price
+                db[prod_id].ButtonType = new_info.ButtonType
+                db[prod_id].SaleStatus = new_info.SaleStatus
                 if (new_info.Qty > old_info.Qty) {
                     console.log(`商品進貨 ${new_info.Name}`)
                     await line_notify(message_template('商品進貨', db[prod_id]))
@@ -173,10 +177,6 @@
                     console.log(`狀態改變 ${new_info.Name}`)
                     await line_notify(message_template('狀態改變', db[prod_id]))
                 }
-                db[prod_id].Qty = new_info.Qty
-                db[prod_id].Price = new_info.Price
-                db[prod_id].ButtonType = new_info.ButtonType
-                db[prod_id].SaleStatus = new_info.SaleStatus
                 await fs.outputJson(db_des, db)
             })
             const store_prod_ids = await Promise.reduce(
