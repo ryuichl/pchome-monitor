@@ -140,6 +140,7 @@
                 })
                 prods[`${prod_id}-000`].Qty = button.Qty
                 prods[`${prod_id}-000`].ButtonType = button.ButtonType
+                prods[`${prod_id}-000`].SaleStatus = button.SaleStatus
                 return true
             })
             await fs.outputJson(db_des, prods)
@@ -162,9 +163,6 @@
                 if (!old_info) {
                     return true
                 }
-                db[prod_id].Qty = new_info.Qty
-                db[prod_id].Price = new_info.Price
-                db[prod_id].ButtonType = new_info.ButtonType
                 if (new_info.Qty > old_info.Qty) {
                     console.log(`商品進貨 ${new_info.Name}`)
                     await line_notify(message_template('商品進貨', db[prod_id]))
@@ -175,6 +173,10 @@
                     console.log(`狀態改變 ${new_info.Name}`)
                     await line_notify(message_template('狀態改變', db[prod_id]))
                 }
+                db[prod_id].Qty = new_info.Qty
+                db[prod_id].Price = new_info.Price
+                db[prod_id].ButtonType = new_info.ButtonType
+                db[prod_id].SaleStatus = new_info.SaleStatus
                 await fs.outputJson(db_des, db)
             })
             const store_prod_ids = await Promise.reduce(
@@ -222,6 +224,7 @@
                         const button = pchome_info_parse(await got(options))[0]
                         new_info.Qty = button.Qty
                         new_info.ButtonType = button.ButtonType
+                        new_info.SaleStatus = button.SaleStatus
                         console.log(`新商品上架 ${new_info.Name}`)
                         await line_notify(message_template('新商品上架', new_info))
                         new_info.update_at = moment().tz('Asia/Taipei').format()
