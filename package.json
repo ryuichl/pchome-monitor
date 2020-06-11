@@ -18,6 +18,7 @@
     },
     "homepage": "https://github.com/ryuichl/pchome-monitor#readme",
     "dependencies": {
+        "async": "^3.2.0",
         "bluebird": "^3.7.2",
         "cron": "^1.8.2",
         "dotenv": "^8.2.0",
