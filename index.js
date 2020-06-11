@@ -101,13 +101,13 @@
                 db[prod_id].SaleStatus = new_info.SaleStatus
                 if (new_info.Qty > old_info.Qty) {
                     console.log(`商品進貨 ${old_info.Name}`)
-                    await line_notify(config.line.notify, message_template('商品進貨', db[prod_id]))
+                    await line_notify(message_template('商品進貨', db[prod_id]))
                 } else if (new_info.Qty === 0 && old_info.Qty !== 0) {
                     console.log(`商品售完 ${old_info.Name}`)
-                    await line_notify(config.line.notify, message_template('商品售完', db[prod_id]))
+                    await line_notify(message_template('商品售完', db[prod_id]))
                 } else if (new_info.ButtonType !== old_info.ButtonType) {
                     console.log(`狀態改變 ${old_info.Name}`)
-                    await line_notify(config.line.notify, message_template('狀態改變', db[prod_id]))
+                    await line_notify(message_template('狀態改變', db[prod_id]))
                 }
                 await fs.outputJson(db_des, db)
             })
@@ -122,7 +122,7 @@
                         new_info.ButtonType = button.ButtonType
                         new_info.SaleStatus = button.SaleStatus
                         console.log(`新商品上架 ${new_info.Name}`)
-                        await line_notify(config.line.notify, message_template('新商品上架', new_info))
+                        await line_notify(message_template('新商品上架', new_info))
                         new_info.update_at = moment().tz('Asia/Taipei').format()
                         db[`${prod_id}-000`] = new_info
                         await fs.outputJson(db_des, db)
