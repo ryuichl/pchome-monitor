@@ -1,6 +1,10 @@
 const got = require('got')
 const async = require('async')
 
+const sleep = (time) => {
+    return new Promise((resolve) => setTimeout(resolve, time))
+}
+
 const info_parse = (info) => {
     info = info.replace('try{jQuery111103710843696499564_1584096535427(', '')
     info = info.replace('try{jsonp_cartsnapup(', '')
