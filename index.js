@@ -116,8 +116,8 @@
                 store_prod_ids,
                 async (prod_id) => {
                     if (!db.hasOwnProperty(`${prod_id}-000`)) {
-                        const new_info = await pchome_handlers.prod_info(`${prod_id}-000`)
-                        const button = await pchome_handlers.button_info(`${prod_id}-000`)
+                        const new_info = (await pchome_handlers.prod_info(`${prod_id}-000`))[`${prod_id}-000`]
+                        const button = (await pchome_handlers.button_info(`${prod_id}-000`))[0]
                         new_info.Qty = button.Qty
                         new_info.ButtonType = button.ButtonType
                         new_info.SaleStatus = button.SaleStatus
